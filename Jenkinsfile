@@ -113,25 +113,27 @@ pipeline {
             }
         }
 
-        stage('Create QA Automation Infrastructure') {
-            steps {
-                echo 'Creating QA Automation Infrastructure for Dev Environment'
-                sh """
-                    cd IaC/cluster 
-                    sed -i "s/firstkeymac/$ANS_KEYPAIR/g" cluster.tf
-                    terraform init
-                    terraform apply -auto-approve -no-color
-                """
-                script {
-                    echo "Kubernetes Master is not UP and running yet."
-                    env.id = sh(script: 'aws ec2 describe-instances --filters Name=tag-value,Values=master Name=tag-value,Values=tera-kube-ans Name=instance-state-name,Values=running --query Reservations[*].Instances[*].[InstanceId] --output text',  returnStdout:true).trim()
-                    sh 'aws ec2 wait instance-status-ok --instance-ids $id'
-                }
-            }
-        }
+        // stage('Create QA Automation Infrastructure') {
+        //     steps {
+        //         echo 'Creating QA Automation Infrastructure for Dev Environment'
+        //         sh """
+        //             cd IaC/cluster 
+        //             sed -i "s/firstkeymac/$ANS_KEYPAIR/g" cluster.tf
+        //             terraform init
+        //             terraform apply -auto-approve -no-color
+        //         """
+        //         script {
+        //             echo "Kubernetes Master is not UP and running yet."
+        //             env.id = sh(script: 'aws ec2 describe-instances --filters Name=tag-value,Values=master Name=tag-value,Values=tera-kube-ans Name=instance-state-name,Values=running --query Reservations[*].Instances[*].[InstanceId] --output text',  returnStdout:true).trim()
+        //             sh 'aws ec2 wait instance-status-ok --instance-ids $id'
+        //         }
+        //     }
+        // }
 
     }  
 }
+
+
 
 
 
