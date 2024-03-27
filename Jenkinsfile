@@ -9,7 +9,7 @@ pipeline {
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
         APP_NAME="gamestop"
-        AWS_ACCOUNT_ID=sh(script:'aws sts get-caller-identity --query Account --output text', returnStdout:true).trim()
+        // AWS_ACCOUNT_ID=sh(script:'aws sts get-caller-identity --query Account --output text', returnStdout:true).trim()
         AWS_REGION="us-east-1"
         ANS_KEYPAIR="${APP_NAME}-dev-${BUILD_NUMBER}.key"
     }
