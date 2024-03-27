@@ -83,7 +83,7 @@ pipeline {
         
         stage('Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-fs-report.html markquest/game-stop:latest"
+                sh "trivy image --format table -o trivy-fs-report.html markquest/gamestop:latest"
                  
             }
         }
@@ -94,7 +94,7 @@ pipeline {
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
                     docker.withDockerRegistry(credentialsId: 'dockerhub-access', toolName: 'docker') {
-                             sh "docker push markquest/game-stop:latest"
+                             sh "docker push markquest/gamestop:latest"
                     }
                 }
             }
