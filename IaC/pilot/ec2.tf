@@ -1,6 +1,6 @@
 resource "aws_instance" "jenkins-ec2" {
   ami                    = "ami-0f403e3180720dd7e"
-  instance_type          = "t2.micro"
+  instance_type          = "t2.medium"
   key_name        = ""
   vpc_security_group_ids      = [aws_security_group.jenkins-sg.id]
   tags = {
@@ -10,7 +10,7 @@ resource "aws_instance" "jenkins-ec2" {
 
 resource "aws_instance" "sonarqube" {
   ami                    = "ami-0f403e3180720dd7e"
-  instance_type          = "t2.micro"
+  instance_type          = "t2.medium"
   key_name        = "firstkeymac"
   vpc_security_group_ids      = [aws_security_group.jenkins-sg.id]
   tags = {

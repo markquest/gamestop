@@ -14,9 +14,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "storing Terraform state"
-    key            = "terraform.tfstate"
+    bucket         = "tf-state-backend"
+    key            = "jenkins"
     region         = "us-east-1"
-    dynamodb_table = "terraform_locks"
   }
 }
