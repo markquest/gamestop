@@ -71,12 +71,14 @@ pipeline {
         stage('Build And Tag Docker Image') {
             steps {
                script {
+                       // Build the Docker image using the Dockerfile in the cloned repository
                    withDockerRegistry(credentialsId: 'dockerhub-access', toolName: 'docker') {
                             sh "docker build -t markquest/gamestop:latest ."
+                    }
+                }
             }
         }
-    }
-}
+
 
         
         stage('Image Scan') {
@@ -91,7 +93,7 @@ pipeline {
             steps {
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                    withDockerRegistry(credentialsId: 'dockerhub-access', toolName: 'docker') {
+                    docker.withDockerRegistry(credentialsId: 'dockerhub-access', toolName: 'docker') {
                              sh "docker push markquest/game-stop:latest"
                     }
                 }
@@ -100,11 +102,6 @@ pipeline {
         
     }  
 }
-
-
-
-
-
 
 
 
