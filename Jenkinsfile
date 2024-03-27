@@ -93,7 +93,7 @@ pipeline {
             steps {
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                    docker.withDockerRegistry(credentialsId: 'dockerhub-access', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'dockerhub-access', toolName: 'docker') {
                              sh "docker push markquest/gamestop:latest"
                     }
                 }
