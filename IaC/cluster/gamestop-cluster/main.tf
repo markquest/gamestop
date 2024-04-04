@@ -1,8 +1,7 @@
-#Create a provider
+#Create a provider 
 provider "aws" {
   region    = var.region
 }
-
 
 #Create vpc
 module "vpc" {

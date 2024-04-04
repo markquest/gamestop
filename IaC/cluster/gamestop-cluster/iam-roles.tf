@@ -23,3 +23,5 @@ resource "aws_iam_instance_profile" "gamestop-kube-master-profile" {
   name = "gamestop-master-server-profile"
   role = aws_iam_role.gamestop-kube-master-s3-role.name
 }
+
+
