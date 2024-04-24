@@ -8,7 +8,6 @@ pipeline {
     
     environment{
         SCANNER_HOME = tool 'sonar-scanner'
-        AWS_CRED = credentials('oguzbeliren1')
         APP_NAME = "gamestop"
         AWS_REGION = "us-east-1"
         ANS_KEYPAIR = "${APP_NAME}-dev-${BUILD_NUMBER}.key"
@@ -106,13 +105,43 @@ pipeline {
                 
                   }
                                     }
+                                    
+                                    
         
+        stage('aws-access') {
+            steps {
+              withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '886534005792', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh 'aws ec2 describe-instances --filters Name=key-name,Values=firstkeymac'
+              }
+            }
+        }
+                                     
+         
         stage('Create Key Pair for Ansible') {
             steps {
+              withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '886534005792', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                 echo "Creating Key Pair for ${APP_NAME} App"
                 sh "aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${ANS_KEYPAIR} --query KeyMaterial --output text > ${ANS_KEYPAIR}"
                 sh "chmod 400 ${ANS_KEYPAIR}"
-            }
-        }
+                                                                                                                                                        }
+                  }
+                                              }
+        
+        
+        stage('Create QA Automation Infrastructure') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '886534005792', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    echo 'Creating QA Automation Infrastructure for Dev Environment'
+                     sh """
+                            cd IaC/cluster/gamestop-cluster
+                            sed -i "s/firstkeymac/$ANS_KEYPAIR/g" main.tf
+                            terraform init
+                            terraform apply -auto-approve -no-color
+                            terraform destroy -auto-approve
+                        """
+}
+                
+                  }
+                                                    }
     }
 }
