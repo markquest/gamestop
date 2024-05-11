@@ -1,0 +1,12 @@
+vpc_cidr                  = "10.0.0.0/16"
+availability_zone         = "us-east-1a"
+availability_zone2        = "us-east-1b"
+map_public_ip_on_launch   = true  # Note: true is not enclosed in quotes for boolean values
+region                    = "us-east-1"
+ecs_task_execution_role_name = "myEcsTaskExecutionRole"
+network_mode = "awsvpc"
+load_balancer_container_name = "myapp"
+fargate_cpu = "1024"
+fargate_memory= "2048"
+app_image = "nginx:latest"
+app_port = 80

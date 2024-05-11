@@ -1,0 +1,14 @@
+variable "vpc_cidr" {}
+variable "availability_zone" {}
+variable "availability_zone2" {}
+variable "map_public_ip_on_launch" {}
+variable "region" {}
+variable "access_key" {}
+variable "secret_key" {}
+variable "ecs_task_execution_role_name" {}
+variable "network_mode" {}
+variable "load_balancer_container_name" {}
+variable "fargate_cpu" {}
+variable "fargate_memory" {}
+variable "app_image" {}
+variable "app_port" {}
