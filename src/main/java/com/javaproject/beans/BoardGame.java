@@ -15,5 +15,4 @@ public class BoardGame {
     private String gameType;
 
     private List<Review> reviews;
-
 }
