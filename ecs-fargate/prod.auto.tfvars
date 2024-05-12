@@ -8,5 +8,5 @@ network_mode = "awsvpc"
 load_balancer_container_name = "myapp"
 fargate_cpu = "1024"
 fargate_memory= "2048"
-app_image = "nginx:latest"
+app_image = "886534005792.dkr.ecr.us-east-1.amazonaws.com/markquest/gamestop:latest"
 app_port = 80
